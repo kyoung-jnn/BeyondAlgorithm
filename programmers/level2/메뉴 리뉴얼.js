@@ -1,38 +1,23 @@
 function solution(orders, course) {
-  let answer = [];
-  let parsedOrders = orders.map((order) => {
+  const answer = [];
+  const parsedOrders = orders.map((order) => {
     return order.split("");
   });
 
-  function combination(order, selectNum) {
-    const result = [];
-    if (selectNum === 1) return order.map((item) => [item]);
-
-    order.forEach((menu, index, order) => {
-      const fixed = menu;
-      const restOrders = order.slice(index + 1);
-      const restCombination = combination(restOrders, selectNum - 1);
-      const fixedCombination = restCombination.map((item) => [fixed, ...item]);
-      result.push(...fixedCombination);
-    });
-
-    return result;
-  }
-
   course.map((size) => {
-    let temp = {};
+    const orderMap = {};
     let max = 0;
-
     parsedOrders.forEach((order) => {
-      combination(order, size).forEach((orders) => {
-        const menu = orders.sort().join("");
-        temp[menu] === undefined
-          ? (temp[menu] = 1)
-          : ((temp[menu] += 1), (max = max < temp[menu] ? temp[menu] : max));
+      combination(order, size).forEach((sizedOrder) => {
+        const menu = sizedOrder.sort().join("");
+        orderMap[menu]
+          ? ((orderMap[menu] += 1),
+            (max = orderMap[menu] > max ? orderMap[menu] : max))
+          : (orderMap[menu] = 1);
       });
     });
 
-    Object.entries(temp).map(([key, value]) => {
+    Object.entries(orderMap).map(([key, value]) => {
       if (value === max) {
         answer.push(key);
       }
@@ -42,4 +27,18 @@ function solution(orders, course) {
   return answer.sort();
 }
 
-solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4]);
+const combination = (array, selectNum) => {
+  const result = [];
+
+  if (selectNum === 1) return array.map((item) => [item]);
+
+  array.forEach((item, index, array) => {
+    const fixed = item;
+    const restArr = array.slice(index + 1);
+    const restCombination = combination(restArr, selectNum - 1);
+    const fixedCombination = restCombination.map((item) => [fixed, ...item]);
+    result.push(...fixedCombination);
+  });
+
+  return result;
+};
