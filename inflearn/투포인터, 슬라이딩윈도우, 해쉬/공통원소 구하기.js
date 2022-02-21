@@ -1,7 +1,7 @@
 function solution(arr1, arr2) {
   let answer = [];
-  arr1.sort();
-  arr2.sort();
+  arr1.sort((a, b) => a - b);
+  arr2.sort((a, b) => a - b); // 오름차순, 2자리 숫자를 위해
 
   let point1 = 0;
   let point2 = 0;
