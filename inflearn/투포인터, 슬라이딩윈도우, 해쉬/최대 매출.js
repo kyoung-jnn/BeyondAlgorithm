@@ -1,3 +1,6 @@
+// Slide window
+// 특정 구간(길이)만큼 쭉 비교해나가는
+
 function solution(K, arr) {
   let answer = 0;
   let sum = 0;
