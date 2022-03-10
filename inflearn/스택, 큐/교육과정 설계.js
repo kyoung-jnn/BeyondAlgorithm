@@ -7,7 +7,7 @@ function solution(need, plan) {
     }
   }
 
-  // 필수과목이 없음
+  // 필수과목이 빠트림
   if (needs.length > 0) return "NO";
   return "YES";
 }
