@@ -1,0 +1,24 @@
+// 한 줄 입력
+const fs = require("fs");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+
+// 여러 줄 입력
+const fs = require("fs");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+
+let count = input[0];
+let numbers = [];
+
+for (let i = 1; i < input.length; i++) {
+  if (input[i] !== "") {
+    numbers.push(input[i].split(" "));
+  }
+}
+
+// solution
+
+function solution(n, numbers) {}
+
+solution(n, numbers);

@@ -42,9 +42,9 @@ function solution(m, n, board) {
     // 3. 블록 당기기 / 중요
     for (let row = m - 1; row >= 0; row--) {
       for (let col = 0; col < n; col++) {
-        for (let i = row - 1; i >= 0; i--) {
-          if (board[row][col]) break;
+        if (board[row][col]) break;
 
+        for (let i = row - 1; i >= 0; i--) {
           if (board[i][col]) {
             board[row][col] = board[i][col];
             board[i][col] = 0;
