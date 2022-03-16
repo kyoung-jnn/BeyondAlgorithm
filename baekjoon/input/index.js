@@ -1,14 +1,24 @@
 // 한 줄 입력
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/input.txt";
 let input = fs.readFileSync(filePath).toString().split("\n");
 
+let n = input[0];
+
+function solution(n) {}
+
+solution(n);
+
+//
+//
 // 여러 줄 입력
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/input.txt";
 let input = fs.readFileSync(filePath).toString().split("\n");
 
-let count = input[0];
+let n = input[0];
 let numbers = [];
 
 for (let i = 1; i < input.length; i++) {
@@ -16,8 +26,6 @@ for (let i = 1; i < input.length; i++) {
     numbers.push(input[i].split(" "));
   }
 }
-
-// solution
 
 function solution(n, numbers) {}
 

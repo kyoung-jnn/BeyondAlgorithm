@@ -1,7 +1,7 @@
 // 여러 줄
 const fs = require("fs");
 const filePath =
-  process.platform === "linux" ? "/dev/stdin" : "../input/input.txt";
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/input.txt";
 let input = fs.readFileSync(filePath).toString().split("\n");
 
 let count = input[0];
