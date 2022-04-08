@@ -1,17 +1,17 @@
 function solution(arr) {
   let answer = "NO";
-  let total = arr.reduce((acc, cur) => acc + cur, 0);
+  let total = arr.reduce((acc, cur) => cur + acc, 0);
 
-  const DFS = (depth, sum) => {
+  const DFS = (index, sum) => {
     if (answer === "YES") return;
-    if (depth === arr.length) {
+    if (index === arr.length) {
       if (total - sum === sum) {
         answer = "YES";
         return;
       }
     } else {
-      DFS(depth + 1, sum + arr[depth]); // 포함
-      DFS(depth + 1, sum); // 불포함
+      DFS(index + 1, sum + arr[index]); // 현재 수 포함
+      DFS(index + 1, sum); // 현재 수 포함
     }
   };
 
