@@ -1,4 +1,5 @@
 // 효율성 실패
+
 /* function solution(n, k, cmd) {
   let answer = Array(n).fill("O");
   const chart = Array(n)
@@ -39,56 +40,61 @@
 } */
 
 function solution(n, k, cmd) {
-  let answer = Array(n).fill("O");
-  const nodes = { 0: [n - 1, 1] }; // key: 행 번호, value: [prev, next]
+  let answer = Array.from({ length: n }, () => "O");
+  let cursor = Number(k);
+
+  const nodes = { 0: [n - 1, 1] };
   const trash = [];
 
-  let cursor = parseInt(k);
-
-  // 연결리스트 생성
+  // 연결 리스트 노드 생성
   for (let i = 1; i < n; i++) {
-    nodes[i] = i !== n - 1 ? [i - 1, i + 1] : [i - 1, 0];
+    nodes[i] = i === n - 1 ? [i - 1, 0] : [i - 1, i + 1];
   }
 
-  cmd.forEach((temp) => {
-    const command = temp.split(" ");
+  cmd.forEach((commands) => {
+    const command = commands.split(" ");
 
     let count = 0;
     if (command[0] === "U") {
       // 위
-      while (count < parseInt(command[1])) {
+      while (count < Number(command[1])) {
         cursor = nodes[cursor][0];
         count += 1;
       }
     } else if (command[0] === "D") {
       // 아래
-      while (count < parseInt(command[1])) {
+      while (count < Number(command[1])) {
         cursor = nodes[cursor][1];
         count += 1;
       }
     } else if (command[0] === "C") {
       // 삭제
+      const temp = nodes[cursor];
       nodes[nodes[cursor][0]][1] = nodes[cursor][1];
       nodes[nodes[cursor][1]][0] = nodes[cursor][0];
 
       trash.push([cursor, nodes[cursor]]);
-      const temp = nodes[cursor];
       delete nodes[cursor];
 
-      // 마지막 행인지 판단
+      // 마지막 행 여부 확인
       cursor = temp[1] === 0 ? temp[0] : temp[1];
     } else if (command[0] === "Z") {
       // 되돌리기
-      const [row, [prev, next]] = trash.pop();
+      const [index, [prev, next]] = trash.pop();
 
-      nodes[row] = [prev, next];
-      nodes[prev][1] = row;
-      nodes[next][0] = row;
+      nodes[index] = [prev, next];
+      nodes[prev][1] = index;
+      nodes[next][0] = index;
     }
   });
 
-  trash.map((item) => {
-    answer[item[0]] = "X";
+  answer = answer.map((_, index) => {
+    if (!nodes[index]) {
+      return "X";
+    } else {
+      return "O";
+    }
   });
+
   return answer.join("");
 }

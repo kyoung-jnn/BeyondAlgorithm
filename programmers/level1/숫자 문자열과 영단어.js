@@ -1,3 +1,5 @@
+// 문자열
+
 function solution(s) {
   const numberList = [
     "zero",
@@ -12,11 +14,10 @@ function solution(s) {
     "nine",
   ];
 
-  numberList.forEach((element, index) => {
-    while (s.includes(element)) {
-      s = s.replace(element, index.toString());
-    }
+  numberList.forEach((number, index) => {
+    let regex = new RegExp(number, "g");
+    s = s.replace(regex, index);
   });
 
-  return parseInt(s);
+  return Number(s);
 }
